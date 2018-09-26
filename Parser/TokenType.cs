@@ -2,6 +2,7 @@
 {
     public enum TokenType
     {
+        EOF,
         True,
         False,
         Prop,
