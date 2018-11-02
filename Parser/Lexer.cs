@@ -46,12 +46,14 @@ namespace Parser
         private bool SkipSpace()
         {
             var spaceEncountered = false;
-            char read;
+            var nextChar = _stream.Peek();
             
-            while (!IsNextEof() && char.IsWhiteSpace(read = (char) _stream.Read()))
+            while (nextChar != -1 && char.IsWhiteSpace((char) nextChar))
             {
                 spaceEncountered = true;
-                LineNo += read == '\n' ? 1 : 0;
+                nextChar = _stream.Read();
+                LineNo += nextChar == '\n' ? 1 : 0;
+                nextChar = _stream.Peek();
             }
 
             return spaceEncountered;
@@ -72,7 +74,7 @@ namespace Parser
         
         public Token GetToken()
         {
-            var toReturn = new Token(LineNo);
+            Token toReturn;
             
             if (_tokens.Any())
             {
@@ -82,6 +84,8 @@ namespace Parser
             }
 
             SkipSpace();
+            
+            toReturn = new Token(LineNo);
 
             if (IsNextEof())
             {
@@ -179,7 +183,7 @@ namespace Parser
                     if (_stream.Read(verify, 0, 4) == 4 && verify.SequenceEqual(new[] {'a', 'l', 's', 'e'}))
                     {
                         toReturn.Lexeme = "False";
-                        toReturn.TokenType = TokenType.True;
+                        toReturn.TokenType = TokenType.False;
                     }
                     else
                     {
@@ -265,10 +269,11 @@ namespace Parser
             return toReturn;
         }
 
-        public Token Expect(TokenType tokenType)
+        public Token Peek()
         {
             var token = GetToken();
-            return token.TokenType != tokenType ? new Token(TokenType.Error, token.LineNo) : token;
+            UngetToken(token);
+            return token;
         }
     }
 }

@@ -38,6 +38,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CTLExpressionType.cs" />
+    <Compile Include="CTLFormula.cs" />
     <Compile Include="Lexer.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="TokenType.cs" />

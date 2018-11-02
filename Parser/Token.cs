@@ -6,13 +6,6 @@ namespace Parser
         public string Lexeme { get; set; }
         public int LineNo { get; set; }
 
-        public Token()
-        {
-            TokenType = TokenType.Error;
-            Lexeme = string.Empty;
-            LineNo = 0;
-        }
-
         public Token(int lineNo)
         {
             TokenType = TokenType.Error;
@@ -20,13 +13,6 @@ namespace Parser
             LineNo = lineNo;
         }
 
-        public Token(TokenType tokenType)
-        {
-            TokenType = tokenType;
-            Lexeme = string.Empty;
-            LineNo = 0;
-        }
-        
         public Token(TokenType tokenType, int lineNo)
         {
             TokenType = tokenType;
@@ -34,13 +20,6 @@ namespace Parser
             LineNo = lineNo;
         }
 
-//        public Token(TokenType tokenType, string lexeme)
-//        {
-//            TokenType = tokenType;
-//            Lexeme = lexeme;
-//            LineNo = null;
-//        }
-        
         public Token(TokenType tokenType, string lexeme, int lineNo)
         {
             TokenType = tokenType;
