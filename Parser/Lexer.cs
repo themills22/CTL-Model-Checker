@@ -10,7 +10,7 @@ namespace Parser
     public class Lexer
     {
         private readonly List<Token> _tokens;
-        private int LineNo;
+        private int _lineNo;
         private readonly StreamReader _stream;
 
         private readonly string _fileLocation =
@@ -22,7 +22,7 @@ namespace Parser
         public Lexer(string fileName)
         {
             _tokens = new List<Token>();
-            LineNo = 1;
+            _lineNo = 1;
             _stream = new StreamReader(_fileLocation + fileName);
         }
 
@@ -52,7 +52,7 @@ namespace Parser
             {
                 spaceEncountered = true;
                 nextChar = _stream.Read();
-                LineNo += nextChar == '\n' ? 1 : 0;
+                _lineNo += nextChar == '\n' ? 1 : 0;
                 nextChar = _stream.Peek();
             }
 
@@ -61,7 +61,7 @@ namespace Parser
 
         private Token ScanProposition(char firstChar)
         {
-            var toReturn = new Token(TokenType.Prop, firstChar.ToString(), LineNo);
+            var toReturn = new Token(TokenType.Prop, firstChar.ToString(), _lineNo);
             string read;
             
             while (!IsNextEofOrWhitespace() && _propositionSymbols.IsMatch(read = ((char) _stream.Read()).ToString()))
@@ -85,7 +85,7 @@ namespace Parser
 
             SkipSpace();
             
-            toReturn = new Token(LineNo);
+            toReturn = new Token(_lineNo);
 
             if (IsNextEof())
             {
