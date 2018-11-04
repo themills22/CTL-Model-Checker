@@ -30,13 +30,13 @@ namespace Parser
             switch (Type)
             {
                 case CTLExpressionType.And:
-                    return "AND";
+                    return "&&";
                 case CTLExpressionType.Or:
-                    return "OR";
+                    return "||";
                 case CTLExpressionType.Implies:
-                    return "IMPLIES";
+                    return "=>";
                 case CTLExpressionType.IFF:
-                    return "IFF";
+                    return "<=>";
             }
 
             return string.Empty;
@@ -63,7 +63,7 @@ namespace Parser
                     Console.Write("( ");
                     if (Type == CTLExpressionType.Not)
                     {
-                        Console.Write("NOT ");
+                        Console.Write("~ ");
                         LeftFormula.PrintCTLFormula();
                     }
                     else

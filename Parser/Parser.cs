@@ -27,8 +27,14 @@ namespace Parser
         public Parser(string fileName)
         {
             _lexer = new Lexer(fileName);
+            _propositionsFound = new List<string>();
         }
 
+        public List<string> GetPropositionsFound()
+        {
+            return _propositionsFound;
+        }
+        
         private void Error(Token errorToken)
         {
             Console.WriteLine("There was an error while parsing this file on line number " + errorToken.LineNo + ".");
