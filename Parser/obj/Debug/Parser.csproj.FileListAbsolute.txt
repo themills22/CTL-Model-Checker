@@ -1,0 +1,5 @@
+C:\Users\vinny\Desktop\ASU\senior_year\FSE100\Honors Contract\CTL-Model-Checker\Parser\bin\Debug\Parser.dll
+C:\Users\vinny\Desktop\ASU\senior_year\FSE100\Honors Contract\CTL-Model-Checker\Parser\bin\Debug\Parser.pdb
+C:\Users\vinny\Desktop\ASU\senior_year\FSE100\Honors Contract\CTL-Model-Checker\Parser\obj\Debug\Parser.csprojResolveAssemblyReference.cache
+C:\Users\vinny\Desktop\ASU\senior_year\FSE100\Honors Contract\CTL-Model-Checker\Parser\obj\Debug\Parser.dll
+C:\Users\vinny\Desktop\ASU\senior_year\FSE100\Honors Contract\CTL-Model-Checker\Parser\obj\Debug\Parser.pdb
