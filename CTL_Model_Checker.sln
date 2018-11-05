@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parser", "Parser\Parser.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{42F1B0F2-98E5-4585-9570-BE57949AA93F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelChecker", "ModelChecker\ModelChecker.csproj", "{0E6CE870-58B6-41C4-8214-D2CE02EB7651}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{42F1B0F2-98E5-4585-9570-BE57949AA93F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42F1B0F2-98E5-4585-9570-BE57949AA93F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42F1B0F2-98E5-4585-9570-BE57949AA93F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E6CE870-58B6-41C4-8214-D2CE02EB7651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E6CE870-58B6-41C4-8214-D2CE02EB7651}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E6CE870-58B6-41C4-8214-D2CE02EB7651}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E6CE870-58B6-41C4-8214-D2CE02EB7651}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

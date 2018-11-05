@@ -25,6 +25,38 @@ namespace Parser
             Lexeme = lexeme;
         }
 
+        public CTLFormula(CTLExpressionType type, CTLFormula left)
+        {
+            Type = type;
+            LeftFormula = left;
+        }
+
+        public CTLFormula(CTLExpressionType type, CTLFormula left, CTLFormula right)
+        {
+            Type = type;
+            LeftFormula = left;
+            RightFormula = right;
+        }
+
+        public void Negate()
+        {
+            if (Type == CTLExpressionType.Not)
+            {
+                LeftFormula = LeftFormula.LeftFormula;
+                RightFormula = LeftFormula.RightFormula;
+                Lexeme = LeftFormula.Lexeme;
+                Type = LeftFormula.Type;
+            }
+            else
+            {
+                var newFormula = new CTLFormula(CTLExpressionType.Not, this);
+                LeftFormula = newFormula.LeftFormula;
+                RightFormula = newFormula.RightFormula;
+                Lexeme = newFormula.Lexeme;
+                Type = newFormula.Type;
+            }
+        }
+
         private string GetTwoSidedOperatorString()
         {
             switch (Type)

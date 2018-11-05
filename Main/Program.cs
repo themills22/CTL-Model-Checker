@@ -9,6 +9,10 @@ namespace Main
         {
             var parser = new Parser.Parser(args[0]);
             var formula = parser.ParseCTLFormula();
+//            formula.PrintCTLFormula();
+//            Console.WriteLine();
+            var mc = new ModelChecker.ModelChecker();
+            formula = mc.MakeValid(formula);
             formula.PrintCTLFormula();
             Console.WriteLine();
         }
