@@ -38,25 +38,6 @@ namespace Parser
             RightFormula = right;
         }
 
-        public void Negate()
-        {
-            if (Type == CTLExpressionType.Not)
-            {
-                LeftFormula = LeftFormula.LeftFormula;
-                RightFormula = LeftFormula.RightFormula;
-                Lexeme = LeftFormula.Lexeme;
-                Type = LeftFormula.Type;
-            }
-            else
-            {
-                var newFormula = new CTLFormula(CTLExpressionType.Not, this);
-                LeftFormula = newFormula.LeftFormula;
-                RightFormula = newFormula.RightFormula;
-                Lexeme = newFormula.Lexeme;
-                Type = newFormula.Type;
-            }
-        }
-
         private string GetTwoSidedOperatorString()
         {
             switch (Type)

@@ -28,25 +28,38 @@ namespace ModelChecker
 
         private CTLFormula Negate(CTLFormula formula)
         {
-            if (formula.Type == CTLExpressionType.Not)
+            switch (formula.Type)
             {
-                return formula.LeftFormula;
+                case CTLExpressionType.Not:
+                    return formula.LeftFormula;
+                case CTLExpressionType.True:
+                    formula.Type = CTLExpressionType.False;
+                    return formula;
+                case CTLExpressionType.False:
+                    formula.Type = CTLExpressionType.True;
+                    return formula;
+                default:
+                    return new CTLFormula(CTLExpressionType.Not, formula);
             }
-            return new CTLFormula(CTLExpressionType.Not, formula);
         }
 
         public CTLFormula MakeValid(CTLFormula formula)
         {
+            if (formula.LeftFormula != null)
+            {
+                formula.LeftFormula = MakeValid(formula.LeftFormula);
+            }
+            
+            if (formula.RightFormula != null)
+            {
+                formula.RightFormula = MakeValid(formula.RightFormula);
+            }
+            
             if (_validExpressionTypes.Contains(formula.Type))
             {
                 return formula;
             }
 
-            formula.LeftFormula = MakeValid(formula.LeftFormula);
-            if (formula.RightFormula != null)
-            {
-                formula.RightFormula = MakeValid(formula.RightFormula);
-            }
 
             switch (formula.Type)
             {
