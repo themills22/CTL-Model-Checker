@@ -23,10 +23,9 @@ namespace Parser
             _stream = new StreamReader(fileName);
         }
 
-        public TokenType UngetToken(Token token)
+        public void UngetToken(Token token)
         {
             _tokens.Add(token);
-            return token.TokenType;
         }
 
         private bool IsNextEof()
@@ -47,7 +46,7 @@ namespace Parser
                      !_propositionSymbols.IsMatch(((char) read).ToString()));
         }
 
-        private bool SkipSpace()
+        private void SkipSpace()
         {
             var spaceEncountered = false;
             var nextChar = _stream.Peek();
@@ -59,8 +58,6 @@ namespace Parser
                 _lineNo += nextChar == '\n' ? 1 : 0;
                 nextChar = _stream.Peek();
             }
-
-            return spaceEncountered;
         }
 
         private Token ScanProposition(char firstChar)
