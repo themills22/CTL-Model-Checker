@@ -58,12 +58,12 @@ namespace Parser
             CTLFormula formula;
             if (token.TokenType == TokenType.True)
             {
-                return new CTLFormula(CTLExpressionType.True);
+                return new CTLFormula(CTLExpressionType.True, "True");
             }
 
             if (token.TokenType == TokenType.False)
             {
-                return new CTLFormula(CTLExpressionType.False);
+                return new CTLFormula(CTLExpressionType.False, "False");
             }
 
             if (token.TokenType == TokenType.Prop)

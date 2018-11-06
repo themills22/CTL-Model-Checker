@@ -13,9 +13,6 @@ namespace Parser
         private int _lineNo;
         private readonly StreamReader _stream;
 
-        private readonly string _fileLocation =
-            @"C:\Users\vinny\Desktop\ASU\senior_year\FSE100\Honors Contract\CTL-Model-Checker\CTL Files\";
-
         private readonly Regex _propositionSymbols = new Regex(@"[a-z0-9_]");
         private readonly Regex _existentialSymbols = new Regex(@"[XFG]");
 
@@ -23,7 +20,7 @@ namespace Parser
         {
             _tokens = new List<Token>();
             _lineNo = 1;
-            _stream = new StreamReader(_fileLocation + fileName);
+            _stream = new StreamReader(fileName);
         }
 
         public TokenType UngetToken(Token token)

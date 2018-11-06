@@ -15,6 +15,7 @@
         </e>
       </e>
       <e p="ModelChecker" t="IncludeRecursive">
+        <e p="Automata.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="ModelChecker.cs" t="Include" />
         <e p="ModelChecker.csproj" t="IncludeRecursive" />
