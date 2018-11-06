@@ -40,6 +40,13 @@ namespace Parser
             return read == -1 || char.IsWhiteSpace((char) read);
         }
 
+        private bool IsNextCharProposition()
+        {
+            var read = _stream.Peek();
+            return !(read == -1 || char.IsWhiteSpace((char) read) ||
+                     !_propositionSymbols.IsMatch(((char) read).ToString()));
+        }
+
         private bool SkipSpace()
         {
             var spaceEncountered = false;
@@ -61,7 +68,7 @@ namespace Parser
             var toReturn = new Token(TokenType.Prop, firstChar.ToString(), _lineNo);
             string read;
             
-            while (!IsNextEofOrWhitespace() && _propositionSymbols.IsMatch(read = ((char) _stream.Read()).ToString()))
+            while (IsNextCharProposition() && _propositionSymbols.IsMatch(read = ((char) _stream.Read()).ToString()))
             {
                 toReturn.Lexeme += read;
             }
