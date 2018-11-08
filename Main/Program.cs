@@ -1,4 +1,5 @@
 ﻿using System;
+using ModelChecker;
 using Parser;
 
 namespace Main
@@ -9,8 +10,11 @@ namespace Main
         {
             var parser = new Parser.Parser(args[0]);
             var formula = parser.ParseCTLFormula();
-            formula.PrintCTLFormula();
-            Console.WriteLine();
+            var automata = new Automata(args[1]);
+
+            var mc = new ModelChecker.ModelChecker(automata, formula, parser.GetPropositionsFound());
+
+            Console.WriteLine(mc.Check() ? "Yay" : "Nay");
         }
     }
 }

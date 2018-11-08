@@ -25,6 +25,19 @@ namespace Parser
             Lexeme = lexeme;
         }
 
+        public CTLFormula(CTLExpressionType type, CTLFormula left)
+        {
+            Type = type;
+            LeftFormula = left;
+        }
+
+        public CTLFormula(CTLExpressionType type, CTLFormula left, CTLFormula right)
+        {
+            Type = type;
+            LeftFormula = left;
+            RightFormula = right;
+        }
+
         private string GetTwoSidedOperatorString()
         {
             switch (Type)

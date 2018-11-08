@@ -13,9 +13,6 @@ namespace Parser
         private int _lineNo;
         private readonly StreamReader _stream;
 
-        private readonly string _fileLocation =
-            @"C:\Users\vinny\Desktop\ASU\senior_year\FSE100\Honors Contract\CTL-Model-Checker\CTL Files\";
-
         private readonly Regex _propositionSymbols = new Regex(@"[a-z0-9_]");
         private readonly Regex _existentialSymbols = new Regex(@"[XFG]");
 
@@ -23,13 +20,12 @@ namespace Parser
         {
             _tokens = new List<Token>();
             _lineNo = 1;
-            _stream = new StreamReader(_fileLocation + fileName);
+            _stream = new StreamReader(fileName);
         }
 
-        public TokenType UngetToken(Token token)
+        public void UngetToken(Token token)
         {
             _tokens.Add(token);
-            return token.TokenType;
         }
 
         private bool IsNextEof()
@@ -43,7 +39,14 @@ namespace Parser
             return read == -1 || char.IsWhiteSpace((char) read);
         }
 
-        private bool SkipSpace()
+        private bool IsNextCharProposition()
+        {
+            var read = _stream.Peek();
+            return !(read == -1 || char.IsWhiteSpace((char) read) ||
+                     !_propositionSymbols.IsMatch(((char) read).ToString()));
+        }
+
+        private void SkipSpace()
         {
             var spaceEncountered = false;
             var nextChar = _stream.Peek();
@@ -55,8 +58,6 @@ namespace Parser
                 _lineNo += nextChar == '\n' ? 1 : 0;
                 nextChar = _stream.Peek();
             }
-
-            return spaceEncountered;
         }
 
         private Token ScanProposition(char firstChar)
@@ -64,7 +65,7 @@ namespace Parser
             var toReturn = new Token(TokenType.Prop, firstChar.ToString(), _lineNo);
             string read;
             
-            while (!IsNextEofOrWhitespace() && _propositionSymbols.IsMatch(read = ((char) _stream.Read()).ToString()))
+            while (IsNextCharProposition() && _propositionSymbols.IsMatch(read = ((char) _stream.Read()).ToString()))
             {
                 toReturn.Lexeme += read;
             }
