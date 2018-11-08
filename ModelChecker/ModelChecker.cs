@@ -26,16 +26,18 @@ namespace ModelChecker
 
         private Automata _automata;
         private CTLFormula _formula;
+        private List<string> _formulaPropositions;
 
         public ModelChecker()
         {
             
         }
 
-        public ModelChecker(Automata automata, CTLFormula formula)
+        public ModelChecker(Automata automata, CTLFormula formula, List<string> formulaPropositions)
         {
             _automata = automata;
             _formula = MakeValid(formula);
+            _formulaPropositions = formulaPropositions;
         }
 
         private CTLFormula NegateFormula(CTLFormula formula)
@@ -65,7 +67,7 @@ namespace ModelChecker
             return toNegate;
         }
 
-        private bool isStringListSubset(List<string> subsetList, List<string> supersetList)
+        private bool IsStringListSubset(List<string> subsetList, List<string> supersetList)
         {
             supersetList.Sort();
             foreach (var element in subsetList)
@@ -79,7 +81,7 @@ namespace ModelChecker
             return true;
         }
 
-        public CTLFormula MakeValid(CTLFormula formula)
+        private CTLFormula MakeValid(CTLFormula formula)
         {
             if (formula.LeftFormula != null)
             {
@@ -125,24 +127,24 @@ namespace ModelChecker
                     return new CTLFormula(CTLExpressionType.Not, formula);
                 case CTLExpressionType.AF:
                     formula.RightFormula = formula.LeftFormula;
-                    formula.LeftFormula = new CTLFormula(CTLExpressionType.True);
+                    formula.LeftFormula = new CTLFormula(CTLExpressionType.True, "True");
                     formula.Type = CTLExpressionType.AU;
                     return formula;
                 case CTLExpressionType.AG:
                     formula.LeftFormula = NegateFormula(formula.LeftFormula);
                     formula.RightFormula = formula.LeftFormula;
-                    formula.LeftFormula = new CTLFormula(CTLExpressionType.True);
+                    formula.LeftFormula = new CTLFormula(CTLExpressionType.True, "True");
                     formula.Type = CTLExpressionType.EU;
                     return new CTLFormula(CTLExpressionType.Not, formula);
                 case CTLExpressionType.EF:
                     formula.RightFormula = formula.LeftFormula;
-                    formula.LeftFormula = new CTLFormula(CTLExpressionType.True);
+                    formula.LeftFormula = new CTLFormula(CTLExpressionType.True, "True");
                     formula.Type = CTLExpressionType.EU;
                     return formula;
                 case CTLExpressionType.EG:
                     formula.LeftFormula = NegateFormula(formula.LeftFormula);
                     formula.RightFormula = formula.LeftFormula;
-                    formula.LeftFormula = new CTLFormula(CTLExpressionType.True);
+                    formula.LeftFormula = new CTLFormula(CTLExpressionType.True, "True");
                     formula.Type = CTLExpressionType.AU;
                     return new CTLFormula(CTLExpressionType.Not, formula);
             }
@@ -220,7 +222,7 @@ namespace ModelChecker
                         }
                     }
 
-                    while (!toProcessStates.Any())
+                    while (toProcessStates.Any())
                     {
                         q = toProcessStates[0];
                         toProcessStates.RemoveAt(0);
@@ -256,7 +258,7 @@ namespace ModelChecker
                         }
                     }
 
-                    while (!toProcessStates.Any())
+                    while (toProcessStates.Any())
                     {
                         q = toProcessStates[0];
                         toProcessStates.RemoveAt(0);
@@ -275,6 +277,19 @@ namespace ModelChecker
             }
             
             return new List<bool>();
+        }
+
+        public bool Check()
+        {
+            if (!IsStringListSubset(_formulaPropositions, _automata.Propositions))
+            {
+                Console.WriteLine("The CTL formula contains a proposition not in the automaton");
+                Environment.Exit(1);
+            }
+
+            var markedStates = Marking(_formula);
+
+            return markedStates[_automata.InitialState];
         }
     }
 }

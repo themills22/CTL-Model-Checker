@@ -52,7 +52,7 @@ namespace ModelChecker
             InitialState = 0;
 
             str = stream.ReadLine();
-            while (str != null && !string.Equals(str, "STATE_PROPOSITIONS"))
+            while (str != null && !string.Equals(str, "STATE PROPOSITIONS"))
             {
                 var strings = str.Split(null);
                 q = int.Parse(strings[0]);
@@ -89,11 +89,6 @@ namespace ModelChecker
                 q = StatesDict[int.Parse(strings[0])];
                 for (var i = 1; i < strings.Length; i++)
                 {
-                    if (string.Equals(strings[i], "END"))
-                    {
-                        break;
-                    }
-
                     StatePropositions[strings[i]][q] = true;
                 }
             }
